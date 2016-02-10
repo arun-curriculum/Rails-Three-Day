@@ -1,5 +1,11 @@
 # Rails in Production
 
+## Member List Lab
+- For this exercise we will be practicing our system admin skills by creating a simple application using a gem called Paperclip.
+- You can find the documentation here: https://github.com/thoughtbot/paperclip
+- The frontend has already been done for you [here](member_list/).
+- Your job is to make the application work and then deploy it to AWS.
+
 ## AWS Overview
 - AWS is a powerful suite of services that give you access to many infrastructure options.
 - Let's review some of the options in the control panel.
