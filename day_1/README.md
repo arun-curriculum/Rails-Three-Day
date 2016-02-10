@@ -144,7 +144,7 @@ application.js
 
 ## Wine Manager Lab Part 1
 - Today we will be building a wine manager system using web requests with Rails.
-- Let's practice what we learned yesterday about templates, routes, controllers, views, etc.
+- Let's practice what we learned today about templates, routes, controllers, views, etc.
 - Your job is to create a front-end for a wine application with the following fields:
 	- name
 	- year
