@@ -1,153 +1,12 @@
-#Introduction to Ruby on Rails
+# Introduction to Ruby on Rails
 
-##Install Software
-
-####Install RVM
-
-`\curl -sSL https://get.rvm.io | bash -s stable`
-
-####Install Ruby
-
-`rvm install ruby --disable-binary`
-
-####Check Installation
-
-`ruby -v`
-
-####Install Rails
-
-`gem install rails`
-
-##The Ruby Language
-
-- To practice using Ruby we can use the Interactive Ruby (IRB) tool.
-- Everything is an object.
-- Everything that is manipulated is an object, and the results of those manipulations are objects.
-- In Ruby everything is an object and you'll be able to use object methods on it all.
-
-Let's take a look at some examples:
-
-```
-puts "Arun Sood".length
-puts "Arun".index("A")
-puts 35.even?
-```
-
-- We can tell that everything is an object, because everything has a "class":
-
-```
-"Arun Sood".class #String
-4.class #Fixnum
-[].class #Array
-Object.class #Class
-```
-
-- Something like this `message = "Hello World"` is essentially the equivalent of `message = String.new("Hello World")`.
-
-- There is little conversion of type:
-
-```
-puts "Hello " + 4 + 2 #no implicit conversion of Fixnum into String
-```
-
-##Modules Versus Objects
-
-####Modules
-- Modules are like libraries.
-- Usually used for containing a bunch of "helper" functions that you can call throughout your program.
-- Great example is the [Math module](http://www.ruby-doc.org/core-2.1.4/Math.html) built into Ruby:
-
-```
-Math.sqrt(9) #3.0
-```
-
-####Objects
-- Ruby is a proper object-oriented language.
-- "Classes" wrap methods that are related to that object.
-- Classes can also inherit from other classes - this is called extension. We will get to this later.
-
-```
-class Car
-	def initialize(color, make, model)
-		@color = color
-		@make = make
-		@model = model
-	end
-	
-	def drive
-		puts "We are now driving!"
-	end
-	
-	def paint(new_color)
-		@color = new_color
-		puts @color
-	end
-	
-	def describe_car
-		puts "We are driving in the #{@color} #{@make} #{@model}"
-	end
-end
-
-Car.new("Red", "Honda", "Civic").paint("Blue")
-```
-
-##Control Flow in Ruby
-- Controlling the flow of your application is crucial because it allows you to perform actions only under certain conditions.
-- Control flow often involves the use of "conditional" statements such as `if` - `else` blocks and the use of loops such as `for` and `while`.
-
-####`if` statements
-
-```ruby
-yes =  true
-
-if yes
-	puts "Indeed!"
-end
-```
-
-####`if` - `else` blocks:
-
-```ruby
-name = "Arun"
-if name == "Bob"
-	puts "Hello Bob"
-elsif name == "John"
-	puts "Hello John"
-else
-	puts "Hello Someone"
-end
-```
-
-- Code inside a block is only executed when the condition is met.
-- By condition being met, we mean that the statement returns `true`.
-
-##Getting User Data in IRB
-- Ruby has a method called `gets` that allows you to retrieve data from the user typing into the console.
-- In order to prevent the input from receiving a new line each time you must call the `.chomp` method:
-
-```
-message = gets.chomp
-
-num = gets.chomp.to_i
-```
-
-##In-Class Lab
-- Let's create a simple calculator using the Ruby Math module.
-- First, write two `gets` statements that will take 2 numbers from our user.
-- Create a class called `Calculator` that will wrap all of our methods.
-- Create an `initializer` method that takes in the 2 numbers and sets them as instance variables.
-- Write at least 4 methods that perform different math operations and output the result using `puts`. You can reference them [here](http://www.ruby-doc.org/core-2.1.4/Math.html).
-- Instantiate your class using each of these 4 methods.
-- Bonus 1: Create a simple `if else` statement that will choose which method to pick based on a third `gets` input.
-- Bonus 2: Create another method that uses one of the Math constants in your operation.
-
-##Rails from the Rails People
+## Rails from the Rails People
 
 "Ruby on Rails is an open-source web framework that's optimized for programmer happiness and sustainable productivity.
 
 It lets you write beautiful code by favoring convention over configuration."
 
-##What Rails Includes
+## What Rails Includes
 
 Rails wraps in a bunch of functionality right out of the box:
 - MVC programming pattern convention
@@ -165,26 +24,26 @@ Rails wraps in a bunch of functionality right out of the box:
 - EASY PEEZY extension of functionality through community-supported gems.
 - Oh and sessions... Yeah that's a big one!
 
-##MVC Pattern Coding
+## MVC Pattern Coding
 
-####Models
+##### Models
 - Models are where data interactions happen.
 - You will often see logic related to pulling and saving to databases here.
 
-####Views
+##### Views
 - Views are what the users will actually see.
 - It is the UI made dynamic through the templating engine.
 - Views in Rails are served through layouts.
 
-####Controllers
+##### Controllers
 - Controllers bridge the gap between models and views.
 - They take requests and do something with them.
 - One controller can have many methods relating to that specific logical concern.
 
-####Routes
+##### Routes
 - Like Node, routes take HTTP requests from a specific URL and hand them off to a specific controller and a specific method inside that controller.
 
-##Rails Command Line Interface
+## Rails Command Line Interface
 - Allows you to create new projects.
 - You can easily generate new components of your project.
 - Easily destroy aspects of your application that you no longer need.
@@ -232,7 +91,7 @@ RAKE:
 rake db:migrate
 ```
 
-##Hello World in Rails
+## Hello World in Rails
 
 What it's gonna take:
 - A controller with a method
@@ -242,17 +101,17 @@ What it's gonna take:
 
 Let's do it!
 
-##Book Manager
+## Book Manager
 - We will create a simple CRUD app practicing Rails with models.
 - Before we implement the frontend UI we will perform the CRUD operations using Rails Console.
 - Download the frontend files [here](book_library_html/).
 
-##Asset Pipeline
+## Asset Pipeline
 - Rails wraps in a software called Sprockets that allows you to include multiple static assets in your application.
 - Sprockets also handles the SASS and CoffeeScript interpretation as well as the uglifier.
 - You can read about Sprockets [here](https://github.com/rails/sprockets-rails).
 
-##Using the Asset Pipeline
+## Using the Asset Pipeline
 - For the basic implementation, all that is needed is for you to place any stylesheets, javascripts, and images in their appropriate folders under app/assets.
 - For stylesheets, you can find the asset require code in app/assets/stylesheets/application.css:
 
@@ -282,3 +141,55 @@ application.js
 ```
 //= require_tree ../../../vendor/assets/javascripts/
 ```
+
+## Wine Manager Lab Part 1
+- Today we will be building a wine manager system using web requests with Rails.
+- Let's practice what we learned yesterday about templates, routes, controllers, views, etc.
+- Your job is to create a front-end for a wine application with the following fields:
+	- name
+	- year
+	- grapes
+	- country
+	- region
+	- price
+	- description
+	- picture
+- Your application should have 3 separate routes - show all wines, add new wine, edit a wine.
+- Make sure to use layouts with application.html.erb.
+
+## HTTP Requests with Typhoeus
+- Typhoeus is a gem that wraps `libcurl`, which is a tool to make web requests using Ruby.
+- Typhoeus also allows for parallel requests for maximum efficiency.
+
+[Link to the Typhoeus documentation](https://github.com/typhoeus/typhoeus)
+
+Let's go ahead and install the gem into our project:
+
+```
+gem "typhoeus"
+```
+
+##### Making Requests with Typhoeus
+
+```
+request = Typhoeus::Request.new(
+	"www.example.com",
+	method: :post,
+	params: { field1: "a field" },
+	headers: { Accept: "text/html" }
+)
+```
+
+##### Accessing Properties of the Response
+
+```
+response = request.response.body
+```
+
+## Wine Manager Lab Part 2
+- In this assignment we will create a wine inventory management system using a pre-built API: http://daretodiscover.net/wines
+- The app must use the following:
+	- Routes for GET, POST, PUT, DELETE.
+	- 3 views - show all wines, edit wine, new wine using ERB.
+	- All CRUD operations using the correct verbs.
+- Bonus: Make it pretty using Bootstrap

@@ -1,57 +1,5 @@
 #Rails Continued
 
-## Morning Warmup
-- Today we will be building a wine manager system using web requests with Rails.
-- Let's practice what we learned yesterday about templates, routes, controllers, views, etc.
-- Your job is to create a front-end for a wine application with the following fields:
-	- name
-	- year
-	- grapes
-	- country
-	- region
-	- price
-	- description
-	- picture
-- Your application should have 3 separate routes - show all wines, add new wine, edit a wine.
-- Make sure to use layouts with application.html.erb.
-
-## HTTP Requests with Typhoeus
-- Typhoeus is a gem that wraps `libcurl`, which is a tool to make web requests using Ruby.
-- Typhoeus also allows for parallel requests for maximum efficiency.
-
-[Link to the Typhoeus documentation](https://github.com/typhoeus/typhoeus)
-
-Let's go ahead and install the gem into our project:
-
-```
-gem "typhoeus"
-```
-
-##### Making Requests with Typhoeus
-
-```
-request = Typhoeus::Request.new(
-	"www.example.com",
-	method: :post,
-	params: { field1: "a field" },
-	headers: { Accept: "text/html" }
-)
-```
-
-##### Accessing Properties of the Response
-
-```
-response = request.response.body
-```
-
-## In-Class Lab: Wine Manager
-- In this assignment we will create a wine inventory management system using a pre-built API: http://daretodiscover.net/wines
-- The app must use the following:
-	- Routes for GET, POST, PUT, DELETE.
-	- 3 views - show all wines, edit wine, new wine using ERB.
-	- All CRUD operations using the correct verbs.
-- Bonus: Make it pretty using Bootstrap
-
 ## Authentication in Rails
 - Authentication scheme is built in with `has_secure_password`.
 - Rails uses Bcrypt out of the box.
@@ -146,6 +94,62 @@ or
 flash[:success] = "Nice!" 
 redirect_to root_url
 ```
+
+## Configure ActionMailer to Use Mandrill
+- Mandrill is a mail as a service provider that allows you to send email much easier and better through a simple API.
+- We will sign up for a free account [here](https://mandrillapp.com).
+- We will add an initializer to configure our mail settings:
+
+##### config/initializers/mailer_settings.rb
+
+```ruby
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+	:port =>           '587',
+    :address =>        'smtp.mandrillapp.com',
+    :user_name =>      "username here",
+    :password =>       "password here",
+    :domain =>         'domain here',
+    :authentication => :plain
+}
+```
+
+## Using ActionMailer
+- ActionMailer is a piece of software built into Rails that helps you send emails using the standard ERB template format we are used to.
+- You can generate different mailers using the command line interface:
+
+```
+rails g mailer UserMailer
+```
+
+- You will now get a file that looks like a controller in your "mailers" folder. Each method you define here is a class method by default:
+
+```ruby
+class UserMailer < ApplicationMailer
+	default from: "Arun Sood <arun.instructor@gmail.com>"
+
+	def say_hello(name)
+		@name = name
+		mail(to: "test@test.com", subject: "Hello there!")
+	end
+end
+```
+
+- The way it works is that you will have views inside of views/user_mailer that have the same names as the method names in the mailer file. Here we have a file called say_hello.html.erb:
+
+```ruby
+<h1>Hello <%= @name %>!</h1>
+```
+
+- We can use this mailer in our controller whenever we need to send mail using this template:
+
+```ruby
+UserMailer.say_hello("Arun Sood").deliver_now
+```
+
+## Book Manager Lab Continued
+- In this lab we will add an authentication component to our book manager lab.
+- First we will implement has_secure_password and then we will ensure that a user gets an email once they sign up for an account.
 
 ## Model Validations
 
